@@ -126,7 +126,7 @@
 				nestedShadowRoot.innerHTML = `<style>
               </style>
               <form id="my-form" onsubmit="return false;">
-                <label>
+                <label id="username">
                   Username:
                   <input type="text" name="username" />
                 </label>
@@ -185,6 +185,14 @@
 
 			customElements.define('closed-open-form', ClosedOpenForm);
 		}
+
+    const myEvent = new CustomEvent("myevent", {
+        detail: {},
+        bubbles: true,
+        cancelable: true,
+        composed: false,
+    });
+    document.querySelector("#username").dispatchEvent(myEvent);
 </script>
 </body>
 </html>
