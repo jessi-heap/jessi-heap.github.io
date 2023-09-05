@@ -103,6 +103,7 @@
                 <input type="password" name="password" data-pwd='asdfasdfasdf'/>
               </label>
                 <input type="submit" value="Submit">
+                <button onClick="myEventHandler(event)" id="testButton">Stop Propagation</button>
             </form>`;
 
 			// Add the nested element to the shadow root of the custom element.
@@ -126,7 +127,7 @@
 				nestedShadowRoot.innerHTML = `<style>
               </style>
               <form id="my-form" onsubmit="return false;">
-                <label id="username">
+                <label>
                   Username:
                   <input type="text" name="username" />
                 </label>
@@ -192,7 +193,22 @@
         cancelable: true,
         composed: false,
     });
-    document.querySelector("#username").dispatchEvent(myEvent);
+    document.querySelector("#testButton").dispatchEvent(myEvent);
+
+    function myEventHandler(e)
+    {
+        if (!e)
+            e = window.event;
+
+        //IE9 & Other Browsers
+        if (e.stopPropagation) {
+            e.stopPropagation();
+        }
+        //IE8 and Lower
+        else {
+            e.cancelBubble = true;
+        }
+    }
 </script>
 </body>
 </html>
