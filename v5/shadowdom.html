@@ -103,8 +103,8 @@
                 <input type="password" name="password" data-pwd='asdfasdfasdf'/>
               </label>
                 <input type="submit" value="Submit">
-                <button onClick="myEventHandler(event)" id="testButton">Stop</button>
-                <button onClick="myEventHandler(event)" role="submit">Fake Submit</button>
+                <button onClick="stopAction(event)" id="testButton">Stop</button>
+                <button onClick="stopAction(event)" role="submit">Fake Submit</button>
             </form>`;
 
 			// Add the nested element to the shadow root of the custom element.
@@ -114,7 +114,7 @@
             const linkText = document.createTextNode("This is link");
             linkElem.appendChild(linkText)
             linkElem.setAttribute("href", "page1.html");
-            linkElem.setAttribute("onclick", "myEventHandler(event)");
+            linkElem.setAttribute("onclick", "stopAction(event)");
             shadowRoot.appendChild(linkElem);
 
 
@@ -204,16 +204,7 @@
 			customElements.define('closed-open-form', ClosedOpenForm);
 		}
 
-    const myEvent = new CustomEvent("myevent", {
-        detail: {},
-        bubbles: true,
-        cancelable: true,
-        composed: false,
-    });
-    document.querySelector("#testButton").dispatchEvent(myEvent);
-
-    function myEventHandler(e)
-    {
+    function stopAction(e){
         console.log("stopping propagation",e)
         e.preventDefault();
         //IE9 & Other Browsers
