@@ -193,7 +193,7 @@
         cancelable: true,
         composed: false,
     });
-
+    document.querySelector("#testButton").dispatchEvent(myEvent);
 
     function myEventHandler(e)
     {
@@ -207,7 +207,6 @@
         else {
             e.cancelBubble = true;
         }
-        document.querySelector(e).dispatchEvent(myEvent);
     }
 </script>
 </body>
