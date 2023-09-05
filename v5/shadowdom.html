@@ -103,7 +103,7 @@
                 <input type="password" name="password" data-pwd='asdfasdfasdf'/>
               </label>
                 <input type="submit" value="Submit">
-                <button onClick="myEventHandler(event)" id="testButton">Stop Propagation</button>
+                <button onClick="myEventHandler(this)" id="testButton">Stop Propagation</button>
             </form>`;
 
 			// Add the nested element to the shadow root of the custom element.
@@ -197,7 +197,7 @@
 
     function myEventHandler(e)
     {
-        console.log("preventDefault")
+        console.log("myEventHandler",e)
         e.preventDefault();
         //IE9 & Other Browsers
         if (e.stopPropagation) {
