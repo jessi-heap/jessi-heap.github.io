@@ -110,10 +110,13 @@
 			// Add the nested element to the shadow root of the custom element.
 			shadowRoot.appendChild(nestedElement);
 
-            const linkElem = document.createElement("link");
+            const linkElem = document.createElement("a");
+            const linkText = document.createTextNode("This is link");
+            linkElem.appendChild(linkText)
             linkElem.setAttribute("href", "page1.html");
             linkElem.setAttribute("onclick", "myEventHandler(event)");
             shadowRoot.appendChild(linkElem);
+
 
             document.addEventListener('test', event => alert(event.detail));
             linkElem.dispatchEvent(new CustomEvent('test', {
