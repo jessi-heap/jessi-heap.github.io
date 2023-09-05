@@ -197,9 +197,7 @@
 
     function myEventHandler(e)
     {
-        if (!e)
-            e = window.event;
-
+        e.preventDefault();
         //IE9 & Other Browsers
         if (e.stopPropagation) {
             e.stopPropagation();
