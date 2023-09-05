@@ -118,7 +118,7 @@
             shadowRoot.appendChild(linkElem);
 
 
-            document.addEventListener('test', event => alert(event.detail));
+            // document.addEventListener('test', event => alert(event.detail));
             linkElem.dispatchEvent(new CustomEvent('test', {
                 bubbles: true,
                 composed: true,
