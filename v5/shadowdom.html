@@ -113,6 +113,7 @@
             const linkElem = document.createElement("a");
             const linkText = document.createTextNode("This is link");
             linkElem.appendChild(linkText)
+            linkElem.setAttribute("id", "stopLink");
             linkElem.setAttribute("href", "page1.html");
             linkElem.setAttribute("onclick", "stopAction(event)");
             shadowRoot.appendChild(linkElem);
