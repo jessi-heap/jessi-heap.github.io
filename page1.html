@@ -357,6 +357,8 @@
               regexpTest: /pattern/,
               symbolTest: Symbol('unique'),
           }
+          obj.foo = obj;
+          obj.bar = obj.foo;
         heap.addEventProperties(obj);
       };
 
