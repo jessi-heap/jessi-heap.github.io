@@ -321,6 +321,7 @@
           'The Content': 'Video',
           zeroTest: 0,
           trueTest: true,
+            oneTest: 1,
           falseTest: false,
           emptyString: '',
           undefTest: undefined,
@@ -331,6 +332,25 @@
         obj.foo = obj;
         obj.bar = obj.foo;
         heap.track('Prop Tester', obj);
+      };
+
+      callAep = function () {
+        obj = {
+          url: '/simple?asdf=234',
+          'The Content': 'Video',
+          zeroTest: 0,
+          trueTest: true,
+            oneTest: 1,
+          falseTest: false,
+          emptyString: '',
+          undefTest: undefined,
+          // Objects, including dates, are unsupported.
+          objTest: { a: 1},
+          dateTest: new Date()
+        }
+        obj.foo = obj;
+        obj.bar = obj.foo;
+        heap.addEventProperties(obj);
       };
 
       triggerTelemetryFn = function () {
