@@ -335,21 +335,26 @@
       };
 
       callAep = function () {
-        obj = {
-          url: '/simple?asdf=234',
-          'The Content': 'Video',
-          zeroTest: 0,
-          trueTest: true,
-            oneTest: 1,
-          falseTest: false,
-          emptyString: '',
-          undefTest: undefined,
-            nanTest: NaN,
-            nullTest: null,
-          // Objects, including dates, are unsupported.
-          objTest: { a: 1},
-          dateTest: new Date()
-        }
+          obj = {
+              url: '/simple?asdf=234',
+              'The Content': 'Video',
+              zeroTest: 0,
+              trueTest: true,
+              oneTest: 1,
+              falseTest: false,
+              emptyString: '',
+              undefTest: undefined,
+              nanTest: NaN,
+              nullTest: null,
+              objTest: { a: 1 },
+              dateTest: new Date(),
+              arrayTest: [1, 2, 3],
+              functionTest: function () {
+                  console.log('Hello, world!');
+              },
+              regexpTest: /pattern/,
+              symbolTest: Symbol('unique'),
+          }
         heap.addEventProperties(obj);
       };
 
