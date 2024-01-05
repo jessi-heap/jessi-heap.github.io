@@ -60,9 +60,9 @@
             const redactTitle = (message) => {
                 try {
                     if (message.type === 'meta_pageview') {
-                        const parts = message.data.pageview_info.hash.split('?');
+                        const parts = message.data.pageview_info.url.hash.split('?');
 
-                        message.data.pageview_info.hash = parts[0];
+                        message.data.pageview_info.url.hash = parts[0];
                     }
                     return message;
                 } catch (e) {
