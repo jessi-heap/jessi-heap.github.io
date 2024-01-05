@@ -362,6 +362,11 @@
         heap.addEventProperties(obj);
       };
 
+      reproError = function () {
+          obj = {"id":"4540538219612432","k":["appName","nrf"],"t":"Place Bark - New Project Initialised","ts":1704425644687,"category_id":"1212","pre_bark_id":174244486,"logged_in":false,"is_seller":false,"bark_mode":"marketing","country_id":237,"experiments.CSAT_measurement.variant":0,"experiments.CSAT_measurement.id":518357113,"experiments.customer_browse_option.variant":0,"experiments.exit_pii.variant":4,"experiments.exit_pii.id":518357114,"experiments.upsell_list.variant":0,"experiments.upsell_list.id":518357115,"sellerListLandingPageSettings.isInExperiment":false,"sellerListLandingPageSettings.lastStepQA":false,"sellerListLandingPageSettings.showContactPrefsOverlay":false,"isCBO":false,"besToken":"03ccbc7b1e265b3424ba05bc0245cfcb","version_id":"v1.3.2","tracking[campaign]":"google-1624152957-81875085270-m","tracking[ptcode]":"EAIaIQobChMI0M-NpajFgwMVrmpHAR1ETAp2EAEYAiAAEgLtoPD_BwE","tracking[trk_gclid]":"EAIaIQobChMI0M-NpajFgwMVrmpHAR1ETAp2EAEYAiAAEgLtoPD_BwE","tracking[trk_ad_id]":"381269595961","tracking[trk_kw_id]":"kwd-10618781","tracking[trk_alid_phy]":"9058761","tracking[trk_src]":"g","tracking[trk_initial_referrer]":"https://www.adsensecustomsearchads.com/","tracking[trk_bark_landing_page]":"https://www.bark.com/en/us/in/maid-services/?nrfp","tracking[_fbp]":"fb.1.1704425643436.1826999106","tracking[trk_client_user_agent]":"Mozilla/5.0 (Linux; Android 11; SM-A136U Build/RP1A.200720.012; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/120.0.6099.43 Mobile Safari/537.36 musical_ly_2023207060 JsSdk/1.0 NetType/MOBILE Channel/googleplay AppName/musical_ly app_version/32.7.6 ByteLocale/es ByteFullLocale/es Region/US AppId/1233 Spark/1.4.7.7-bugfix AppVersion/32.7.6 BytedanceWebview/d8a21c6","tracking[trk_event_source_url]":"https://www.bark.com/en/us/in/maid-services/?nrfp=true","testingLonger":1324567}
+          heap.track('Error Tester', obj);
+      }
+
       triggerTelemetryFn = function () {
         heap.identify('null');
       }
