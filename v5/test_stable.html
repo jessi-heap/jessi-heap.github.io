@@ -61,8 +61,11 @@
                 try {
                     if (message.type === 'meta_pageview') {
                         const parts = message.data.pageview_info.url.hash.split('?');
-
                         message.data.pageview_info.url.hash = parts[0];
+
+                        const lpParts = message.data.session_info.initial_pageview_info.url.hash.split('?');
+                        message.data.session_info.initial_pageview_info.url.hash = lpParts[0];
+                        
                     }
                     return message;
                 } catch (e) {
