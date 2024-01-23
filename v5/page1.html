@@ -59,6 +59,13 @@
             logLevel: 'trace',
             metadataStorage: 'localStorage',
         });
+
+
+        heap.onReady(function() {
+            console.log("heap onReady===============");
+            console.log("heap user:", heap.getUserId());
+            console.log("heap session:", heap.getSessionId());
+        });
     </script>
   </head>
   <body id="page1">
