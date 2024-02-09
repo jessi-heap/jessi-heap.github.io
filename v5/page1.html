@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-      <meta http-equiv="Content-Security-Policy" content="script-src https://sdk.us.heap-api.com https://cdn.us.heap-api.com https://heapanalytics.com 'unsafe-inline'; img-src https://heapanalytics.com; style-src https://heapanalytics.com; connect-src https://c.us.heap-api.com https://heapanalytics.com; font-src https://heapanalytics.com;">
+      <meta http-equiv="Content-Security-Policy" content="script-src https://cdn.us.heap-api.com https://heapanalytics.com 'unsafe-inline'; img-src https://heapanalytics.com; style-src https://heapanalytics.com; connect-src https://c.us.heap-api.com https://heapanalytics.com; font-src https://heapanalytics.com;">
 
       <title>Heap Test really long title really long title really long title really long title really long title really long title really long title really long title really long title really long title really long title really long title really long title really long title</title>
     <style type="text/css">
@@ -54,7 +54,7 @@
     </script>
     <!-- Include Heap -->
     <script type="text/javascript">
-        window.heapReadyCb=window.heapReadyCb||[],window.heap=window.heap||[],heap.load=function(e,t){window.heap.envId=e,window.heap.clientConfig=t=t||{},window.heap.clientConfig.shouldFetchServerConfig=!1;var a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src="https://sdk.us.heap-api.com/config/"+e+"/heap_config.js";var r=document.getElementsByTagName("script")[0];r.parentNode.insertBefore(a,r);var n=["init","startTracking","stopTracking","track","resetIdentity","identify","getSessionId","getUserId","getIdentity","addUserProperties","addEventProperties","removeEventProperty","clearEventProperties","addAccountProperties","addAdapter","addTransformer","addTransformerFn","onReady",],i=function(e){return function(){var t=Array.prototype.slice.call(arguments,0);window.heapReadyCb.push({name:e,fn:function(){heap[e]&&heap[e].apply(heap,t)}})}};for(let o=0;o<n.length;o++)heap[n[o]]=i(n[o])};
+        window.heapReadyCb=window.heapReadyCb||[],window.heap=window.heap||[],heap.load=function(e,t){window.heap.envId=e,window.heap.clientConfig=t=t||{},window.heap.clientConfig.shouldFetchServerConfig=!1;var a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src="https://cdn.us.heap-api.com/config/"+e+"/heap_config.js";var r=document.getElementsByTagName("script")[0];r.parentNode.insertBefore(a,r);var n=["init","startTracking","stopTracking","track","resetIdentity","identify","getSessionId","getUserId","getIdentity","addUserProperties","addEventProperties","removeEventProperty","clearEventProperties","addAccountProperties","addAdapter","addTransformer","addTransformerFn","onReady",],i=function(e){return function(){var t=Array.prototype.slice.call(arguments,0);window.heapReadyCb.push({name:e,fn:function(){heap[e]&&heap[e].apply(heap,t)}})}};for(let o=0;o<n.length;o++)heap[n[o]]=i(n[o])};
         heap.load('1028628221', {
             logLevel: 'trace',
             metadataStorage: 'localStorage',
