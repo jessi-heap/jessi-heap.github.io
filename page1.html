@@ -39,7 +39,7 @@
         width: 32px;
       }
     </style>
-  
+
     <!-- Capture client-side errors -->
     <script type="text/javascript">
       window.errCount = 0;
@@ -71,6 +71,21 @@
     <div id="errorDisp">
       errors<br/>
     </div>
+
+   <div class="pii-test-cs">
+       <p data-heap-redact-text>Testing paragraph redaction <span>Inside span</span></p>
+       <button>Test button</button>
+       <div data-heap-redact-attributes='attr1,attr2'>
+           <div>
+               <p id='customer info' attr1='something sensitive' attr2='something even more sensitive' attr3='completely safe'>Customer Profile</p>
+           </div>
+       </div>
+       <div>Testing random paragraph</div>
+       <div data-heap-redact-text>
+           Social Security Number
+       </div>
+
+   </div>
     <div class="nested" id="test-nested">
       <span class="layer" id="another">
         <div class="btn" id="regElem">Signup now!</div>
