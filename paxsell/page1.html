@@ -66,6 +66,22 @@
                 window._uxa.push(['trackPageview', window.location.pathname + window.location.hash.replace('#', '?__')]);
             }
         })();
+
+        const PIIobject = {
+            PIISelectors: ["#redactMe","#redactMeAlso"],
+            Attributes: [
+                {
+                    selector: "#redactAttribute", // CSS selector(s)
+                    attrName: 'data-blue' // Attribute name you want to mask
+                },
+                {
+                    selector: "#redactAttribute2", // CSS selector(s)
+                    attrName: ['data-blue','data-green'] // Array attribute names you want to mask
+                }
+            ]
+        };
+
+        window._uxa.push(['setPIISelectors', PIIobject]);
     </script>
 </head>
 <body id="page1">
@@ -80,20 +96,29 @@
     errors<br/>
 </div>
 
-<div class="pii-test-cs">
-    <p data-heap-redact-text>Testing paragraph redaction <span>Inside span</span></p>
-    <button>Test button</button>
-    <div data-heap-redact-attributes='attr1,attr2'>
+<div class="pii-test-cs" style="border: 1px solid #000000">
+    <h2>Use this for PII testing</h2>
+    <p data-cs-mask>This paragraph uses <code>data-cs-mask</code>. <span>Here is a child element</span></p>
+    <button>Test button (no redaction)</button>
+
+    <div id="redactMe">
+        Everything within this div should be redacted through <code>PIISelectors</code>
         <div>
             <p id='customer info' attr1='something sensitive' attr2='something even more sensitive' attr3='completely safe'>Customer Profile</p>
         </div>
     </div>
-    <div>Testing random paragraph</div>
-    <div data-heap-redact-text>
-        Social Security Number
+
+    <div id="redactMeAlso">
+        Everything within this div should be redacted through <code>PIISelectors</code>
     </div>
-    <div>Show me this paragraph</div>
-    <div heap-ignore>Hide this paragraph</div>
+
+    <div id="redactAttribute" data-blue="redact me" data-green="do not redact me">
+        <code>data-blue</code> attribute should be redacted
+    </div>
+
+    <div id="redactAttribute2" data-blue="redact me" data-green="redact me">
+        <code>data-blue</code> and <code>data-green</code> attribute should be redacted
+    </div>
 
 </div>
 <div class="nested" id="test-nested">
