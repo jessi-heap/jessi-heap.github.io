@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Heap Test really long title really long title really long title really long title really long title really long title really long title really long title really long title really long title really long title really long title really long title really long title</title>
-    <style type="text/css">
+    <title>PA X-Sell Test Page</title>
+    <style>
         h1.main {
             font-size: 32px;
         }
@@ -53,8 +53,18 @@
     </script>
     <!-- Include Contentsquare -->
     <script type="text/javascript">
+        function getQueryParamValue(paramName) {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            return urlParams.get(paramName);
+        }
+
         (function () {
             window._uxa = window._uxa || [];
+            const setPathValue = getQueryParamValue('setPath');
+            if(setPathValue){
+                window._uxa.push(['setPath', setPathValue]);
+            }
             if (typeof CS_CONF === 'undefined') {
                 window._uxa.push(['setPath', window.location.pathname + window.location.hash.replace('#', '?__')]);
                 var mt = document.createElement("script");
