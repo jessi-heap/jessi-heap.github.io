@@ -61,6 +61,24 @@
 
         (function () {
             window._uxa = window._uxa || [];
+
+            const PIIobject = {
+                PIISelectors: ["#redactMe","#redactMeAlso"],
+                Attributes: [
+                    {
+                        selector: "#redactAttribute", // CSS selector(s)
+                        attrName: 'data-blue' // Attribute name you want to mask
+                    },
+                    {
+                        selector: "#redactAttribute2", // CSS selector(s)
+                        attrName: ['data-blue','data-green'] // Array attribute names you want to mask
+                    }
+                ]
+            };
+
+            window._uxa.push(['setPIISelectors', PIIobject]);
+            window._uxa.push(['setEncryptionSelectors', ".encryptMe, #testEncryption"]);
+            
             const setPathValue = getQueryParamValue('setPath');
             if(setPathValue){
                 window._uxa.push(['setPath', setPathValue]);
@@ -76,23 +94,6 @@
                 window._uxa.push(['trackPageview', window.location.pathname + window.location.hash.replace('#', '?__')]);
             }
         })();
-
-        const PIIobject = {
-            PIISelectors: ["#redactMe","#redactMeAlso"],
-            Attributes: [
-                {
-                    selector: "#redactAttribute", // CSS selector(s)
-                    attrName: 'data-blue' // Attribute name you want to mask
-                },
-                {
-                    selector: "#redactAttribute2", // CSS selector(s)
-                    attrName: ['data-blue','data-green'] // Array attribute names you want to mask
-                }
-            ]
-        };
-
-        window._uxa.push(['setPIISelectors', PIIobject]);
-        window._uxa.push(['setEncryptionSelectors', ".encryptMe, #testEncryption"]);
     </script>
 </head>
 <body id="page1">
