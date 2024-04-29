@@ -77,8 +77,8 @@
             };
 
             window._uxa.push(['setPIISelectors', PIIobject]);
-            window._uxa.push(['setEncryptionSelectors', ".encryptMe, #testEncryption"]);
-            
+            window._uxa.push(['setEncryptionSelectors', "#testEncryption"]);
+
             const setPathValue = getQueryParamValue('setPath');
             if(setPathValue){
                 window._uxa.push(['setPath', setPathValue]);
