@@ -78,7 +78,7 @@
 
             window._uxa.push(['setPIISelectors', PIIobject]);
             window._uxa.push(['setEncryptionSelectors', ".encryptMe, #testEncryption"]);
-            
+
             const setPathValue = getQueryParamValue('setPath');
             if(setPathValue){
                 window._uxa.push(['setPath', setPathValue]);
@@ -137,7 +137,7 @@
     <h2>Use this for encryption testing</h2>
     <button>Test button (no encryption)</button>
     <div id="testEncryption">Should be ignored</div>
-    <div class="encryptMe">Should be ignored <span>span within should also be ignored</span></div>
+    <div class="encryptMe">Should be ignored <span id="span-inside">span within should also be ignored</span></div>
     <div>Should not be ignored</div>
     <div class="encryptMe">Should be ignored</div>
 
