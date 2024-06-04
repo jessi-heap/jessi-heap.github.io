@@ -56,13 +56,13 @@
         heap.identify({'Experiment #1': 'Slower Feed'});
         heap.addUserProperties({'page2': 'hit'});
       }
-      function testSetPathFn (dependencyContainer) {
-        heap.setPath('test-new-path');
-      }
-      heap.addAdapter(
-              { name: 'testSetPath', fn: testSetPathFn },
-              { isBlocking: true, blockDurationInMs: 7000 },
-      );
+      // function testSetPathFn (dependencyContainer) {
+      //   heap.setPath('/test-new-path');
+      // }
+      // heap.addAdapter(
+      //         { name: 'testSetPath', fn: testSetPathFn },
+      //         { isBlocking: true, blockDurationInMs: 7000 },
+      // );
     </script>
   </head>
   <body id="page2">
