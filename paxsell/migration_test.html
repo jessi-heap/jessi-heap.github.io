@@ -9,26 +9,26 @@
         heap.load("1707339914", {logLevel: 'trace'});
     </script>
     <!-- Native v4 heap installation -->
-    <script type="text/javascript">
-        window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=document.createElement("script");r.type="text/javascript",r.async=!0,r.src="https://cdn.heapanalytics.com/js/heap-"+e+".js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(r,a);for(var n=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","resetIdentity","removeEventProperty","setEventProperties","track","unsetEventProperty"],o=0;o<p.length;o++)heap[p[o]]=n(p[o])};
-        heap.load("1707339914");
-    </script>
-    <!-- Include Contentsquare -->
 <!--    <script type="text/javascript">-->
-<!--        (function () {-->
-<!--            window._uxa = window._uxa || [];-->
-<!--            if (typeof CS_CONF === 'undefined') {-->
-<!--                window._uxa.push(['setPath', window.location.pathname + window.location.hash.replace('#', '?__')]);-->
-<!--                var mt = document.createElement("script");-->
-<!--                mt.type = "text/javascript";-->
-<!--                mt.async = true;-->
-<!--                mt.src = "//t.contentsquare.net/uxa/9124f750d193e.js";-->
-<!--                document.getElementsByTagName("head")[0].appendChild(mt);-->
-<!--            } else {-->
-<!--                window._uxa.push(['trackPageview', window.location.pathname + window.location.hash.replace('#', '?__')]);-->
-<!--            }-->
-<!--        })();-->
+<!--        window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=document.createElement("script");r.type="text/javascript",r.async=!0,r.src="https://cdn.heapanalytics.com/js/heap-"+e+".js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(r,a);for(var n=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","resetIdentity","removeEventProperty","setEventProperties","track","unsetEventProperty"],o=0;o<p.length;o++)heap[p[o]]=n(p[o])};-->
+<!--        heap.load("1707339914");-->
 <!--    </script>-->
+    <!-- Include Contentsquare -->
+    <script type="text/javascript">
+        (function () {
+            window._uxa = window._uxa || [];
+            if (typeof CS_CONF === 'undefined') {
+                window._uxa.push(['setPath', window.location.pathname + window.location.hash.replace('#', '?__')]);
+                var mt = document.createElement("script");
+                mt.type = "text/javascript";
+                mt.async = true;
+                mt.src = "//t.contentsquare.net/uxa/9124f750d193e.js";
+                document.getElementsByTagName("head")[0].appendChild(mt);
+            } else {
+                window._uxa.push(['trackPageview', window.location.pathname + window.location.hash.replace('#', '?__')]);
+            }
+        })();
+    </script>
 </head>
 <body>
     <h1>Hello World!</h1>
