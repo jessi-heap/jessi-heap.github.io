@@ -14,10 +14,11 @@
 <br/>
 <br/>
 <h1>Shadowdom Form</h1>
-<custom-form-test></custom-form-test>
+<custom-form-test data-testid="custom-form-test"></custom-form-test>
+<custom-form-test data-testid="custom-form-test-stop-propagation"></custom-form-test>
 <br/>
 <br/>
-<h1>REgular Form</h1>
+<h1>Regular Form</h1>
 <div class="regular-dom-form" data-heap-redact-text='true'>
     <form id="my-form" onsubmit="return false;">
         <label>
@@ -44,18 +45,20 @@
 <button onclick="renderOpenShadowdomInClosedContext()">Render open shadowdom in closed context</button>
 <closed-open-form></closed-open-form>
 
+<div id="host"></div>
+
 <script>
-	class MyCustomElement extends HTMLElement {
-		constructor() {
-			super();
+    class MyCustomElement extends HTMLElement {
+        constructor() {
+            super();
 
-			// Attach a shadow root to the element.
-			const shadowRoot = this.attachShadow({mode: 'open'});
+            // Attach a shadow root to the element.
+            const shadowRoot = this.attachShadow({mode: 'open'});
 
-			// Create a nested element with its own shadow root.
-			const nestedElement = document.createElement('div');
-			const nestedShadowRoot = nestedElement.attachShadow({mode: 'open'});
-			nestedShadowRoot.innerHTML = `<style>
+            // Create a nested element with its own shadow root.
+            const nestedElement = document.createElement('div');
+            const nestedShadowRoot = nestedElement.attachShadow({mode: 'open'});
+            nestedShadowRoot.innerHTML = `<style>
             p {
               color: red;
             }
@@ -69,30 +72,31 @@
 
             </p>`;
 
-			// Add the nested element to the shadow root of the custom element.
-			shadowRoot.appendChild(nestedElement);
-		}
-	}
+            // Add the nested element to the shadow root of the custom element.
+            shadowRoot.appendChild(nestedElement);
+        }
+    }
 
-	// Define the new element
-	customElements.define('my-custom-element', MyCustomElement);
+    // Define the new element
+    customElements.define('my-custom-element', MyCustomElement);
 
-	class CustomForm extends HTMLElement {
-		constructor() {
-			super();
+    class CustomForm extends HTMLElement {
+        constructor() {
+            super();
 
-			// Attach a shadow root to the element.
-			const shadowRoot = this.attachShadow({mode: 'open'});
+            // Attach a shadow root to the element.
+            const shadowRoot = this.attachShadow({mode: 'open'});
 
-			// Create a nested element with its own shadow root.
-			const nestedElement = document.createElement('div');
-			const nestedShadowRoot = nestedElement.attachShadow({mode: 'open'});
-			nestedShadowRoot.innerHTML = `<style>
+            // Create a nested element with its own shadow root.
+            const nestedElement = document.createElement('div');
+            nestedElement.setAttribute("data-id", "shadowRoot");
+            const nestedShadowRoot = nestedElement.attachShadow({mode: 'open'});
+            nestedShadowRoot.innerHTML = `<style>
             </style>
             <form id="my-form" onsubmit="return false;">
               <label>
                 Username:
-                <input type="text" name="username" />
+                <input type="text" name="username" data-id="username" value="testUsername" />
               </label>
               <label>
                 Full name:
@@ -102,46 +106,45 @@
                 Password:
                 <input type="password" name="password" data-pwd='asdfasdfasdf'/>
               </label>
-                <input type="submit" value="Submit">
-                <button onClick="stopAction(event)" id="testButton">Stop</button>
-                <button onClick="stopAction(event)" role="submit">Fake Submit</button>
+                <input type="submit" value="Submit" data-id="submit">
             </form>`;
 
-			// Add the nested element to the shadow root of the custom element.
-			shadowRoot.appendChild(nestedElement);
+            // Add the nested element to the shadow root of the custom element.
+            shadowRoot.appendChild(nestedElement);
 
+            shadowRoot.appendChild(nestedElement);
+
+            const url = location.href.replace('/shadowdom/','/page1/');
             const linkElem = document.createElement("a");
             const linkText = document.createTextNode("This is link");
             linkElem.appendChild(linkText)
-            linkElem.setAttribute("id", "stopLink");
-            linkElem.setAttribute("href", "page1.html");
-            linkElem.setAttribute("onclick", "stopAction(event)");
+            linkElem.setAttribute("data-id", "testLink");
+            linkElem.setAttribute("href", url);
             shadowRoot.appendChild(linkElem);
 
 
-            // document.addEventListener('test', event => alert(event.detail));
-            linkElem.dispatchEvent(new CustomEvent('test', {
+            linkElem.dispatchEvent(new CustomEvent('mockCustomEvent', {
                 bubbles: true,
                 composed: true,
                 detail: "composed"
             }));
-		}
-	}
+        }
+    }
 
-	customElements.define('custom-form-test', CustomForm);
+    customElements.define('custom-form-test', CustomForm);
 
-	var renderSecretShadowdom = function() {
-		class SecretForm extends HTMLElement {
-			constructor() {
-				super();
+    var renderSecretShadowdom = function() {
+        class SecretForm extends HTMLElement {
+            constructor() {
+                super();
 
-				// Attach a shadow root to the element.
-				const shadowRoot = this.attachShadow({mode: 'open'});
+                // Attach a shadow root to the element.
+                const shadowRoot = this.attachShadow({mode: 'open'});
 
-				// Create a nested element with its own shadow root.
-				const nestedElement = document.createElement('div');
-				const nestedShadowRoot = nestedElement.attachShadow({mode: 'open'});
-				nestedShadowRoot.innerHTML = `<style>
+                // Create a nested element with its own shadow root.
+                const nestedElement = document.createElement('div');
+                const nestedShadowRoot = nestedElement.attachShadow({mode: 'open'});
+                nestedShadowRoot.innerHTML = `<style>
               </style>
               <form id="my-form" onsubmit="return false;">
                 <label>
@@ -159,42 +162,26 @@
                   <input type="submit" value="Submit">
               </form>`;
 
-				// Add the nested element to the shadow root of the custom element.
-				shadowRoot.appendChild(nestedElement);
-
-                const linkElem = document.createElement("a");
-                const linkText = document.createTextNode("This is link");
-                linkElem.appendChild(linkText)
-                linkElem.setAttribute("href", "page1.html");
-                linkElem.setAttribute("onclick", "stopAction(event)");
-                shadowRoot.appendChild(linkElem);
-
-
-                // document.addEventListener('test', event => alert(event.detail));
-                linkElem.dispatchEvent(new CustomEvent('test', {
-                    bubbles: true,
-                    composed: true,
-                    detail: "composed"
-                }));
-
+                // Add the nested element to the shadow root of the custom element.
+                shadowRoot.appendChild(nestedElement);
             }
-		}
+        }
 
-		customElements.define('secret-form', SecretForm);
-	}
+        customElements.define('secret-form', SecretForm);
+    }
 
-		var renderOpenShadowdomInClosedContext = function() {
-			class ClosedOpenForm extends HTMLElement {
-				constructor() {
-					super();
+    var renderOpenShadowdomInClosedContext = function() {
+        class ClosedOpenForm extends HTMLElement {
+            constructor() {
+                super();
 
-					// Attach a shadow root to the element.
-					const shadowRoot = this.attachShadow({mode: 'closed'});
+                // Attach a shadow root to the element.
+                const shadowRoot = this.attachShadow({mode: 'closed'});
 
-					// Create a nested element with its own shadow root.
-					const nestedElement = document.createElement('div');
-					const nestedShadowRoot = nestedElement.attachShadow({mode: 'open'});
-					nestedShadowRoot.innerHTML = `<style>
+                // Create a nested element with its own shadow root.
+                const nestedElement = document.createElement('div');
+                const nestedShadowRoot = nestedElement.attachShadow({mode: 'open'});
+                nestedShadowRoot.innerHTML = `<style>
               </style>
               <form id="my-form" onsubmit="return false;">
                 <label>
@@ -212,41 +199,125 @@
                   <input type="submit" value="Submit">
               </form>`;
 
-					// Add the nested element to the shadow root of the custom element.
-					shadowRoot.appendChild(nestedElement);
+                // Add the nested element to the shadow root of the custom element.
+                shadowRoot.appendChild(nestedElement);
+            }
+        }
 
-                    const linkElem = document.createElement("a");
-                    const linkText = document.createTextNode("This is link");
-                    linkElem.appendChild(linkText)
-                    linkElem.setAttribute("href", "page1.html");
-                    linkElem.setAttribute("onclick", "stopAction(event)");
-                    shadowRoot.appendChild(linkElem);
-
-
-                    // document.addEventListener('test', event => alert(event.detail));
-                    linkElem.dispatchEvent(new CustomEvent('test', {
-                        bubbles: true,
-                        composed: true,
-                        detail: "composed"
-                    }));
-				}
-			}
-
-			customElements.define('closed-open-form', ClosedOpenForm);
-		}
+        customElements.define('closed-open-form', ClosedOpenForm);
+    }
 
     function stopAction(e){
-        console.log("stopping propagation",e)
         e.preventDefault();
-        //IE9 & Other Browsers
         if (e.stopPropagation) {
             e.stopPropagation();
-        }
-        //IE8 and Lower
-        else {
+        } else {
             e.cancelBubble = true;
         }
     }
+
+    function dispatchEventInShadowRoot(host, selector, eventType, options = {}, shadowRoot) {
+        if (!shadowRoot) {
+            // If shadowRoot is not provided, start with the initial shadow DOM.
+            const hostElement = document.querySelector(host);
+            if (hostElement) {
+                shadowRoot = hostElement.shadowRoot;
+            } else {
+                console.error(`Host element not found.`);
+                return;
+            }
+        }
+
+        const shadowElement = shadowRoot.querySelector(selector);
+
+        if (!shadowElement) {
+            console.log(`Element with selector "${selector}" not found in the shadow DOM.`);
+            // If the element is not found in the current shadow DOM, check nested shadow DOMs.
+            const nestedHostElements = shadowRoot.querySelectorAll('[data-id="shadowRoot"]');
+            for (const nestedHost of nestedHostElements) {
+                const nestedShadowRoot = nestedHost.shadowRoot;
+                if (nestedShadowRoot) {
+                    dispatchEventInShadowRoot(host, selector, eventType, options, nestedShadowRoot);
+                }
+            }
+            return;
+        }
+
+        if (eventType === 'change' && options.hasOwnProperty('value')) {
+            // If it's a change event and a new value is provided in options, update the input value.
+            shadowElement.value = options.value;
+        }
+        console.log(`Element with selector "${selector}" found in the shadow DOM.`, shadowElement);
+
+        let event;
+        if (eventType === 'click') {
+            event = new MouseEvent('click', {
+                bubbles: true,
+                cancelable: true,
+                view: window
+            });
+        } else {
+            event = new Event(eventType);
+        }
+
+        shadowElement.dispatchEvent(event);
+    }
+
+    const hostElement = document.querySelector('[data-testid="custom-form-test-stop-propagation"]');
+    const shadowRoot = hostElement.shadowRoot;
+    const nestedHost = shadowRoot.querySelector('[data-id="shadowRoot"]');
+    const nestedShadowRoot = nestedHost.shadowRoot;
+
+    const shadowElementSubmit = nestedShadowRoot.querySelector('[data-id="submit"]');
+    shadowElementSubmit.addEventListener('submit', function(event) {
+        stopAction(event);
+        const customEvent = new Event("testCustomEvent", { bubbles: true, composed: true });
+        shadowElementSubmit.dispatchEvent(customEvent);
+    }, true);
+
+    const shadowElementClick = shadowRoot.querySelector('[data-id="testLink"]');
+    shadowElementClick.addEventListener('click', function(event) {
+        stopAction(event);
+        const customEvent = new Event("testCustomEvent", { bubbles: true, composed: true });
+        shadowElementClick.dispatchEvent(customEvent);
+    }, true);
+
+    const shadowElementChange = nestedShadowRoot.querySelector('[data-id="username"]');
+    shadowElementChange.addEventListener('change', function(event) {
+        stopAction(event);
+        const customEvent = new Event("testCustomEvent", { bubbles: true, composed: true });
+        shadowElementChange.dispatchEvent(customEvent);
+    }, true);
+
+
+    // used for snapshots testing
+    const host = document.querySelector("#host");
+    const shadow = host.attachShadow({ mode: "open" });
+    const span = document.createElement("p");
+    span.setAttribute("id", "span");
+    span.textContent = "I'm in the shadow DOM";
+    shadow.appendChild(span);
+    const span2 = document.createElement("p");
+    span2.setAttribute("id", "span2");
+    span2.textContent = "I'm also in the shadow DOM";
+    shadow.appendChild(span2);
+
+    const inputTest = document.createElement("input");
+    inputTest.setAttribute("id", "inputTest");
+    inputTest.setAttribute("name", "inputTest");
+    inputTest.setAttribute("value", "Test input");
+    inputTest.setAttribute("class", "siblingInput");
+    shadow.appendChild(inputTest);
+
+    const inputTest2 = document.createElement("input");
+    inputTest2.setAttribute("id", "inputTest2");
+    inputTest2.setAttribute("name", "inputTest2");
+    inputTest2.setAttribute("value", "Test input 2");
+    inputTest2.setAttribute("class", "siblingInput");
+    shadow.appendChild(inputTest2);
+
+
+
 </script>
 </body>
 </html>
