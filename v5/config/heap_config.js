@@ -23,7 +23,7 @@
 
     function constructSDKEndpoint() {
         // TODO - we can also support customer-inputted plugins, we would just find the intersection of the 2
-        var plugins = getPluginKey(SERVER_SIDE_CONFIG.sdk.plugins || []);
+        var plugins = getPluginKey(SERVER_SIDE_CONFIG.sdk?.plugins || []);
         var clientSdkConfig = (heap && heap.clientConfig && heap.clientConfig.sdk) || {};
         var domain = clientSdkConfig.domain || SERVER_SIDE_CONFIG.sdk.domain;
         var version = clientSdkConfig.version || SERVER_SIDE_CONFIG.sdk.version;
