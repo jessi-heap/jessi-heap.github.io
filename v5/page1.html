@@ -67,6 +67,43 @@
             console.log("heap user:", heap.getUserId());
             console.log("heap session:", heap.getSessionId());
         });
+
+        function integration(dependencyContainer) {
+            var SOURCE_NAME = 'dataLayerLoaded';
+
+            function isDataLayerLoaded() {
+                if (window.dataLayer) {
+                    return true;
+                }
+                return false;
+            }
+
+            function dataLayerTimer() {
+                if (window.dataLayer) {
+                    clearTimerAndLoad();
+                }
+            }
+
+            function clearTimerAndLoad() {
+                clearInterval(dataLayerExists);
+                dependencyContainer.markAdapterAsResolved(SOURCE_NAME);
+            }
+
+            try {
+                if (isDataLayerLoaded()) {
+                    dependencyContainer.markAdapterAsResolved(SOURCE_NAME);
+                    return;
+                }
+
+                var dataLayerExists = setInterval(dataLayerTimer, 100);
+                setTimeout(clearTimerAndLoad, 5000);
+                //eslint-disable-next-line no-empty
+            } catch (e) {}
+        }
+        heap.addAdapter(
+            { name: 'dataLayerLoaded', fn: integration },
+            { isBlocking: true, blockDurationInMs: 5000 },
+        );
     </script>
   </head>
   <body id="page1">
