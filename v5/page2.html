@@ -69,7 +69,7 @@
       }
       var adapterName = 'captureMouseDown';
       var adapterFn = function(dependencyContainer) {
-        return executeAdapterFn()
+        return executeAdapterFn(dependencyContainer)
                 .then(function() {
                   heap.markAdapterAsResolved(adapterName);
                 });
