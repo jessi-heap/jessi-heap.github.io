@@ -57,18 +57,20 @@
         heap.addUserProperties({'page2': 'hit'});
       }
 
-      function executeAdapterFn(dependencyContainer) {
-        var elements = document.getElementsByClassName('MuiSelect-select');
-        Array.from(elements).forEach(function (element) {
-          element.addEventListener('mousedown', function (event) {
-            dependencyContainer.logger.trace('Mousedown -- event captured', event);
 
-            dependencyContainer.queueCustomEvent(event);
-          });
-        });
-      }
       var adapterName = 'captureMouseDown';
       var adapterFn = function(dependencyContainer) {
+        function executeAdapterFn(dependencyContainer) {
+          var elements = document.getElementsByClassName('MuiSelect-select');
+          Array.from(elements).forEach(function (element) {
+            element.addEventListener('mousedown', function (event) {
+              dependencyContainer.logger.trace('Mousedown -- event captured', event);
+
+              dependencyContainer.queueCustomEvent(event);
+            });
+          });
+        }
+        
         return executeAdapterFn(dependencyContainer)
                 .then(function() {
                   heap.markAdapterAsResolved(adapterName);
