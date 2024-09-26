@@ -58,36 +58,27 @@
       }
 
 
-      var adapterName = 'captureMouseDown';
-      var adapterFn = function(dependencyContainer) {
-        function executeAdapterFn(dependencyContainer) {
-          var elements = document.getElementsByClassName('MuiSelect-select');
-          Array.from(elements).forEach(function (element) {
-            element.addEventListener('mousedown', function (event) {
-              dependencyContainer.logger.trace('Mousedown -- event captured', event);
+      function captureMouseDownFn(dependencyContainer) {
+        var elements = document.getElementsByClassName('MuiSelect-select');
+        Array.from(elements).forEach(function (element) {
+          element.addEventListener('mousedown', function (event) {
+            dependencyContainer.logger.trace('Mousedown -- event captured', event);
 
-              dependencyContainer.queueCustomEvent(event);
-            });
+            dependencyContainer.queueCustomEvent(event);
           });
-        }
-        
-        return executeAdapterFn(dependencyContainer)
-                .then(function() {
-                  heap.markAdapterAsResolved(adapterName);
-                });
-      };
-
+        });
+        dependencyContainer.markAdapterAsResolved(adapterName);
+      }
       var adapter = {
-        name: adapterName,
-        fn: adapterFn
+        name: 'captureMouseDown',
+        fn: captureMouseDownFn,
       };
-
       var config = {
         isBlocking: true,
-        blockDurationInMs: 3500
+        blockDurationInMs: 3500,
       };
-
-      heap.addAdapter(adapter, config);
+      heap.load('ENV_ID');
+      heap.addAdapter(adapter,config);
 
     </script>
   </head>
