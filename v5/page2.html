@@ -56,13 +56,37 @@
         heap.identify({'Experiment #1': 'Slower Feed'});
         heap.addUserProperties({'page2': 'hit'});
       }
-      function testSetPathFn (dependencyContainer) {
-        heap.setPath('/');
+
+      function executeAdapterFn(dependencyContainer) {
+        var elements = document.getElementsByClassName('MuiSelect-select');
+        Array.from(elements).forEach(function (element) {
+          element.addEventListener('mousedown', function (event) {
+            dependencyContainer.logger.trace('Mousedown -- event captured', event);
+
+            dependencyContainer.queueCustomEvent(event);
+          });
+        });
       }
-      heap.addAdapter(
-              { name: 'testSetPath', fn: testSetPathFn },
-              { isBlocking: true, blockDurationInMs: 7000 },
-      );
+      var adapterName = 'captureMouseDown';
+      var adapterFn = function(dependencyContainer) {
+        return executeAdapterFn()
+                .then(function() {
+                  heap.markAdapterAsResolved(adapterName);
+                });
+      };
+
+      var adapter = {
+        name: adapterName,
+        fn: adapterFn
+      };
+
+      var config = {
+        isBlocking: true,
+        blockDurationInMs: 3500
+      };
+
+      heap.addAdapter(adapter, config);
+
     </script>
   </head>
   <body id="page2">
