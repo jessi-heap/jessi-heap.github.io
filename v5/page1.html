@@ -63,6 +63,28 @@
             // enableSecureCookies: true,
         });
 
+        function fn(dependencyContainer) {
+            var SOURCE_NAME = 'rerunAdapter';
+
+            console.log('should rerun on every pageview');
+            dependencyContainer.markAdapterAsResolved(SOURCE_NAME);
+        }
+        heap.addAdapter(
+            { name: 'rerunAdapter', fn: fn },
+            { isBlocking: true, blockDurationInMs: 5000, rerunOnNewPageview: true },
+        );
+
+        function dnfn(dependencyContainer) {
+            var SOURCE_NAME = 'dontRerunAdapter';
+
+            console.log('should only run once');
+            dependencyContainer.markAdapterAsResolved(SOURCE_NAME);
+        }
+        heap.addAdapter(
+            { name: 'dontRerunAdapter', fn: dnfn },
+            { isBlocking: true, blockDurationInMs: 5000, rerunOnNewPageview: true },
+        );
+
 
         // heap.onReady(function() {
         //     console.log("heap onReady===============");
