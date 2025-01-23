@@ -54,6 +54,24 @@
     </script>
     <!-- Include Heap -->
     <script type="text/javascript">
+        window._uxa = window._uxa || [];
+
+        const PIIobject = {
+            PIISelectors: ["#redactMe","#redactMeAlso"],
+            Attributes: [
+                {
+                    selector: "#redactAttribute", // CSS selector(s)
+                    attrName: 'data-blue' // Attribute name you want to mask
+                },
+                {
+                    selector: "#redactAttribute2", // CSS selector(s)
+                    attrName: ['data-blue','data-green'] // Array attribute names you want to mask
+                }
+            ]
+        };
+
+        window._uxa.push(['setPIISelectors', PIIobject]);
+        window._uxa.push(['setEncryptionSelectors', ".encryptMe, #testEncryption"]);
         window.heapReadyCb=window.heapReadyCb||[],window.heap=window.heap||[],heap.load=function(e,t){window.heap.envId=e,window.heap.clientConfig=t=t||{},window.heap.clientConfig.shouldFetchServerConfig=!1;var a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src="https://cdn.us.heap-api.com/config/"+e+"/heap_config.js";var r=document.getElementsByTagName("script")[0];r.parentNode.insertBefore(a,r);var n=["init","startTracking","stopTracking","track","resetIdentity","identify","getSessionId","getUserId","getIdentity","addUserProperties","addEventProperties","removeEventProperty","clearEventProperties","addAccountProperties","addAdapter","addTransformer","addTransformerFn","onReady",],i=function(e){return function(){var t=Array.prototype.slice.call(arguments,0);window.heapReadyCb.push({name:e,fn:function(){heap[e]&&heap[e].apply(heap,t)}})}};for(let o=0;o<n.length;o++)heap[n[o]]=i(n[o])};
         heap.load('1028628221', {
             logLevel: 'trace',
@@ -162,6 +180,49 @@
        </div>
        <div>Show me this paragraph</div>
        <div heap-ignore>Hide this paragraph</div>
+
+   </div>
+
+   <div class="pii-test-cs" style="border: 1px solid #000000">
+       <h2>Use this for PII testing</h2>
+       <p data-cs-mask>This paragraph uses <code>data-cs-mask</code>. <span>Here is a child element</span></p>
+       <button>Test button (no redaction)</button>
+
+       <div id="redactMe">
+           Everything within this div should be redacted through <code>PIISelectors</code>
+           <div>
+               <p id='customer info' attr1='something sensitive' attr2='something even more sensitive' attr3='completely safe'>Customer Profile</p>
+           </div>
+       </div>
+
+       <div id="redactMeAlso">
+           Everything within this div should be redacted through <code>PIISelectors</code>
+       </div>
+
+       <div id="redactAttribute" data-blue="redact me" data-green="do not redact me">
+           <code>data-blue</code> attribute should be redacted
+       </div>
+
+       <div id="redactAttribute2" data-blue="redact me" data-green="redact me">
+           <code>data-blue</code> and <code>data-green</code> attribute should be redacted
+       </div>
+
+       <div>
+           <span>me email is email@test.com</span><br>
+           <span>my credit card number is 4242424242424242</span>
+
+       </div>
+
+   </div>
+   <div class="pii-encryption-cs" style="border: 1px solid #000000">
+       <h2>Use this for encryption testing</h2>
+       <button>Test button (no encryption)</button>
+       <div id="testEncryption">Should be ignored</div>
+       <div class="encryptMe">Should be ignored <span id="span-inside">span within should not be ignored</span></div>
+       <div>Should not be ignored</div>
+       <div class="encryptMe">Should be ignored</div>
+
+       <p data-cs-encrypt>should be ignored with data-cs-encrypt</p>
 
    </div>
 
