@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Hash Navigation</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .page { display: none; padding: 20px; }
+        .active { display: block; }
+        nav a { margin: 10px; text-decoration: none; color: blue; }
+    </style>
+    <!-- Include Contentsquare -->
+    <script type="text/javascript">
+        (function () {
+            window._uxa = window._uxa || [];
+            if (typeof CS_CONF === 'undefined') {
+                window._uxa.push(['setPath', window.location.pathname + window.location.hash.replace('#', '?__')]);
+                var mt = document.createElement("script");
+                mt.type = "text/javascript";
+                mt.async = true;
+                mt.src = "//t.contentsquare.net/uxa/9124f750d193e.js";
+                document.getElementsByTagName("head")[0].appendChild(mt);
+            } else {
+                window._uxa.push(['trackPageview', window.location.pathname + window.location.hash.replace('#', '?__')]);
+            }
+        })();
+    </script>
+</head>
+<body>
+<nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+</nav>
+
+<div id="home" class="page active">
+    <h1>Welcome to Home</h1>
+    <p>This is the home page.</p>
+</div>
+<div id="about" class="page">
+    <h1>About Us</h1>
+    <p>Learn more about us here.</p>
+</div>
+<div id="contact" class="page">
+    <h1>Contact</h1>
+    <p>Get in touch with us!</p>
+</div>
+
+<script>
+    function showPage() {
+        let pages = document.querySelectorAll('.page');
+        let hash = window.location.hash.substring(1) || 'home';
+
+        pages.forEach(page => {
+            page.classList.remove('active');
+            if (page.id === hash) {
+                page.classList.add('active');
+            }
+        });
+        window._uxa.push(["trackPageview", hash]);
+    }
+
+    window.addEventListener('hashchange', showPage);
+    window.addEventListener('load', showPage);
+</script>
+</body>
+</html>
