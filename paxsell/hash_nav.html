@@ -58,7 +58,7 @@
                 page.classList.add('active');
             }
         });
-        window._uxa.push(["trackPageview", hash]);
+        window._uxa.push(["trackPageview", `/paxsell/hash_nav.html#${hash}`]);
     }
 
     window.addEventListener('hashchange', showPage);
