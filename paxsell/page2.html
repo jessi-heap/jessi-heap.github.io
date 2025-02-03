@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Heap Test</title>
+    <style type="text/css">
+        h1.main {
+            font-size: 64px;
+        }
+
+        div.btn {
+            font-size: 22px;
+            padding: 4px;
+            margin: 10px;
+            border: 1px solid black;
+            width: 120px;
+            background-color: ghostWhite;
+        }
+
+        div.btn:hover {
+            cursor: pointer;
+            background-color: #f1f1f1;
+        }
+
+        div.error {
+            background-color: red;
+        }
+        div.error:hover {
+            background-color: #EA0000;
+        }
+    </style>
+
+    <!-- Include Contentsquare -->
+    <script type="text/javascript">
+        function getQueryParamValue(paramName) {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            return urlParams.get(paramName);
+        }
+
+        (function () {
+            window._uxa = window._uxa || [];
+
+            const setPathValue = getQueryParamValue('setPath');
+            if(setPathValue){
+                window._uxa.push(['setPath', setPathValue]);
+            }
+            if (typeof CS_CONF === 'undefined') {
+                window._uxa.push(['setPath', window.location.pathname + window.location.hash.replace('#', '?__')]);
+                var mt = document.createElement("script");
+                mt.type = "text/javascript";
+                mt.async = true;
+                mt.src = "//t.contentsquare.net/uxa/9124f750d193e.js";
+                document.getElementsByTagName("head")[0].appendChild(mt);
+            } else {
+                window._uxa.push(['trackPageview', window.location.pathname + window.location.hash.replace('#', '?__')]);
+            }
+        })();
+    </script>
+</head>
+<body id="page2">
+<h2 id="header">This is Page 2 of Heap!</h2>
+<div id="clickme">Click Me</div>
+<iframe name="iframe" id="iframe" src="/iframe.html" width="400" height="300">
+    <p>Your browser does not support iframes.</p>
+</iframe>
+<div id="errDisp">
+    errors<br />
+</div>
+
+<script>
+    createLink = function(relativePath, id, text, suffix) {
+        var href = window.location.href.replace('page2', relativePath) + suffix;
+        var anchor = document.createElement('a');
+        anchor.href = href;
+        anchor.id = id;
+        anchor.innerHTML = text;
+        document.body.appendChild(anchor);
+    };
+
+    createLinks = function(links) {
+        for (var i in links) {
+            if (!links.hasOwnProperty(i)) {
+                continue;
+            }
+            var link = links[i];
+            createLink(link[0], link[1], link[2], link[3]);
+        }
+    };
+
+    var links = [
+        ['page1', 'link2', 'Check out another page', ''],
+        ['page1', 'page1_qs', 'Page 1 with query string', '?q=testing'],
+        ['page1_without_load', 'page1_without_load', 'Check out another page', ''],
+        ['page1_without_load', 'page1_without_load_qs', 'Page 1 with query string', '?q=testing'],
+    ];
+
+    createLinks(links);
+</script>
+</body>
+</html>
