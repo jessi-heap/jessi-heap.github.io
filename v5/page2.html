@@ -48,36 +48,39 @@
       heap.load('1028628221', {
         logLevel: 'trace',
       });
-      // Make sure addEventProperties works when called in head.
-      heap.addEventProperties({loggedIn: 'true'});
+      // // Make sure addEventProperties works when called in head.
+      // heap.addEventProperties({loggedIn: 'true'});
+      //
+      // // Test that we correctly handle identify calls in onload handlers.
+      // window.onload = function(){
+      //   heap.identify({'Experiment #1': 'Slower Feed'});
+      //   heap.addUserProperties({'page2': 'hit'});
+      // }
 
-      // Test that we correctly handle identify calls in onload handlers.
-      window.onload = function(){
-        heap.identify({'Experiment #1': 'Slower Feed'});
-        heap.addUserProperties({'page2': 'hit'});
-      }
 
-
-      function captureMouseDownFn(dependencyContainer) {
-        var elements = document.getElementsByClassName('MuiSelect-select');
-        Array.from(elements).forEach(function (element) {
-          element.addEventListener('mousedown', function (event) {
-            dependencyContainer.logger.trace('Mousedown -- event captured', event);
-
-            dependencyContainer.queueCustomEvent(event);
-          });
-        });
-        dependencyContainer.markAdapterAsResolved('captureMouseDown');
-      }
-      var adapter = {
-        name: 'captureMouseDown',
-        fn: captureMouseDownFn,
-      };
-      var config = {
-        isBlocking: true,
-        blockDurationInMs: 3500,
-      };
-      heap.addAdapter(adapter,config);
+      // function captureMouseDownFn(dependencyContainer) {
+      //   var properties = {};
+      //   heap.addPageviewProperties(properties);
+      //   var elements = document.getElementsByClassName('MuiSelect-select');
+      //   Array.from(elements).forEach(function (element) {
+      //     element.addEventListener('mousedown', function (event) {
+      //       dependencyContainer.logger.trace('Mousedown -- event captured', event);
+      //
+      //       dependencyContainer.queueCustomEvent(event);
+      //     });
+      //   });
+      //   dependencyContainer.markAdapterAsResolved('captureMouseDown');
+      // }
+      // var adapter = {
+      //   name: 'captureMouseDown',
+      //   fn: captureMouseDownFn,
+      // };
+      // var config = {
+      //   isBlocking: true,
+      //   blockDurationInMs: 3500,
+      // };
+      // heap.
+      // addAdapter(adapter,config);
 
     </script>
   </head>
