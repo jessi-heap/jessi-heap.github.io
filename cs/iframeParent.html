@@ -1,0 +1,26 @@
+<html>
+<head>
+    <!-- Include CS -->
+    <script type="text/javascript">
+        (function () {
+            window._uxa = window._uxa || [];
+            if (typeof CS_CONF === 'undefined') {
+                window._uxa.push(['setPath', window.location.pathname + window.location.hash.replace('#', '?__')]);
+                var mt = document.createElement("script");
+                mt.type = "text/javascript";
+                mt.async = true;
+                mt.src = "//t.contentsquare.net/uxa/1db5d5ebf4557.js";
+                document.getElementsByTagName("head")[0].appendChild(mt);
+            } else {
+                window._uxa.push(['trackPageview', window.location.pathname + window.location.hash.replace('#', '?__')]);
+            }
+        })();
+    </script>
+</head>
+<body>
+<h1>Page with iframe</h1>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<iframe src="/cs/iframe_with_cs.html" title="description"></iframe>
+<p><button>Test button</button></p>
+</body>
+</html>
