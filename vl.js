@@ -284,26 +284,35 @@ System.register("onMessageHandler", ["constants", "VisualLabeler"], function (ex
         }
     };
 });
-System.register("index", ["onMessageHandler"], function (exports_5, context_5) {
+System.register("index", ["constants", "onMessageHandler", "VisualLabeler", "CookieStorage"], function (exports_5, context_5) {
     "use strict";
-    var onMessageHandler_1;
+    var constants_3, onMessageHandler_1, VisualLabeler_2, CookieStorage_2, initVLIfCookieIsPresent;
     var __moduleName = context_5 && context_5.id;
     return {
         setters: [
+            function (constants_3_1) {
+                constants_3 = constants_3_1;
+            },
             function (onMessageHandler_1_1) {
                 onMessageHandler_1 = onMessageHandler_1_1;
+            },
+            function (VisualLabeler_2_1) {
+                VisualLabeler_2 = VisualLabeler_2_1;
+            },
+            function (CookieStorage_2_1) {
+                CookieStorage_2 = CookieStorage_2_1;
             }
         ],
         execute: function () {
-            // import {VisualLabeler} from "./VisualLabeler";
-            // const initVLIfCookieIsPresent = () => {
-            //   const isNotIframe = window.top === window.self;
-            //   if (isNotIframe && storage.getItem(VL_COOKIE_NAME)) {
-            //     VisualLabeler.getInstance().initialize();
-            //   }
-            // };
+            initVLIfCookieIsPresent = function () {
+                var storage = new CookieStorage_2.CookiesStorage();
+                var isNotIframe = window.top === window.self;
+                if (isNotIframe && storage.getItem(constants_3.VL_COOKIE_NAME)) {
+                    VisualLabeler_2.VisualLabeler.getInstance().initialize();
+                }
+            };
             onMessageHandler_1.initOnMessageHandler();
-            // initVLIfCookieIsPresent();
+            initVLIfCookieIsPresent();
         }
     };
 });
