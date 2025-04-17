@@ -222,12 +222,14 @@ System.register("VisualLabeler", ["constants", "CookieStorage"], function (expor
                  */
                 VisualLabeler.prototype.initialize = function (event) {
                     if (this._hasInitialized) {
+                        console.log('initialized vl');
                         return;
                     }
                     this._hasInitialized = true;
                     this._setVLCookie();
                     this._initializeHeapV(event);
                     if (!window.heapV) {
+                        console.log('window.heapV not found, aborting');
                         return;
                     }
                     this._loadVLScript();
@@ -257,6 +259,7 @@ System.register("onMessageHandler", ["constants", "VisualLabeler"], function (ex
              * The VL gets initiated via postMessage events from the heapanalytics.com domain.
              */
             postMessageHandler = function (event) {
+                console.log('received message ', event);
                 if (event.origin !== constants_2.HEAP_WEB_APP_URI) {
                     return;
                 }
@@ -273,12 +276,14 @@ System.register("onMessageHandler", ["constants", "VisualLabeler"], function (ex
                 VisualLabeler_1.VisualLabeler.getInstance().initialize(event);
             };
             sendReceivedInitMessageTo = function (source) {
+                console.log('sent message received ');
                 source.postMessage({
                     type: 'status',
                     value: constants_2.VisualLabelerStatus.ReceivedInitMessage,
                 }, { targetOrigin: '*' });
             };
             exports_4("initOnMessageHandler", initOnMessageHandler = function () {
+                console.log('initializing handler');
                 window.addEventListener('message', postMessageHandler);
             });
         }
