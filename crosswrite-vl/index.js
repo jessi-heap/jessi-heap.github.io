@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.VisualLabeler = exports.initOnMessageHandler = exports.VisualLabelerStatus = exports.VL_CSS_FOR_JS_URL = exports.VL_CSS_URL = exports.VL_JS_URL = exports.HEAP_WEB_APP_URI = exports.VL_COOKIE_EXPIRATION_IN_MS = exports.VL_COOKIE_NAME = exports.CookiesStorage = void 0;
 var DUMMY_COOKIE_TIMEOUT = 150000;
 var CookiesStorage = /** @class */ (function () {
     function CookiesStorage() {
@@ -120,31 +117,30 @@ var CookiesStorage = /** @class */ (function () {
     }
     return CookiesStorage;
 }());
-exports.CookiesStorage = CookiesStorage;
 // Cookie name for keeping VED overlay
-exports.VL_COOKIE_NAME = '_hp_ved';
+var VL_COOKIE_NAME = '_hp_ved';
 // Life of the Visual Labeler cookie
-exports.VL_COOKIE_EXPIRATION_IN_MS = 1800000; // 30 minutes
+var VL_COOKIE_EXPIRATION_IN_MS = 1800000; // 30 minutes
 // URL for the Heap dashboard
-exports.HEAP_WEB_APP_URI = 'https://heapanalytics.com';
+var HEAP_WEB_APP_URI = 'https://heapanalytics.com';
 // VL JS URL
-exports.VL_JS_URL = 'https://heapanalytics.com/js/ved.js';
+var VL_JS_URL = 'https://heapanalytics.com/js/ved.js';
 // VED CSS URL
-exports.VL_CSS_URL = 'https://heapanalytics.com/css/ved.css';
+var VL_CSS_URL = 'https://heapanalytics.com/css/ved.css';
 // VL CSS Generated from JS import statements
-exports.VL_CSS_FOR_JS_URL = 'https://heapanalytics.com/js/ved.css';
+var VL_CSS_FOR_JS_URL = 'https://heapanalytics.com/js/ved.css';
 var VisualLabelerStatus;
 (function (VisualLabelerStatus) {
     VisualLabelerStatus["ReceivedInitMessage"] = "received_init_message";
     VisualLabelerStatus["PreFetchMetadata"] = "pre_fetch_metadata";
     VisualLabelerStatus["PostFetchMetadata"] = "post_fetch_metadata";
-})(VisualLabelerStatus || (exports.VisualLabelerStatus = VisualLabelerStatus = {}));
+})(VisualLabelerStatus || (VisualLabelerStatus = {}));
 /*
  * The VL gets initiated via postMessage events from the heapanalytics.com domain.
  */
 var postMessageHandler = function (event) {
     console.log('received message ', event);
-    if (event.origin !== exports.HEAP_WEB_APP_URI) {
+    if (event.origin !== HEAP_WEB_APP_URI) {
         return;
     }
     if (typeof event.data !== 'object') {
@@ -170,7 +166,6 @@ var initOnMessageHandler = function () {
     console.log('initializing handler');
     window.addEventListener('message', postMessageHandler);
 };
-exports.initOnMessageHandler = initOnMessageHandler;
 var VisualLabeler = /** @class */ (function () {
     function VisualLabeler() {
         this._hasInitialized = false;
@@ -185,11 +180,11 @@ var VisualLabeler = /** @class */ (function () {
     VisualLabeler.prototype._loadVLScript = function () {
         var script = document.createElement('script');
         script.type = 'text/javascript';
-        script.src = exports.VL_JS_URL;
+        script.src = VL_JS_URL;
         document.head.appendChild(script);
     };
     VisualLabeler.prototype._loadVLStyles = function () {
-        var stylesToLoad = [exports.VL_CSS_URL, exports.VL_CSS_FOR_JS_URL];
+        var stylesToLoad = [VL_CSS_URL, VL_CSS_FOR_JS_URL];
         stylesToLoad.forEach(function (stylesheet) {
             var style = document.createElement('link');
             style.rel = 'stylesheet';
@@ -201,12 +196,12 @@ var VisualLabeler = /** @class */ (function () {
      * This cookie is set when the VL is first initiated, and its presence auto-starts the VL on this page for the next 30 minutes.
      */
     VisualLabeler.prototype._setVLCookie = function () {
-        this._storage.setItem(exports.VL_COOKIE_NAME, 'on', {
-            expires: exports.VL_COOKIE_EXPIRATION_IN_MS,
+        this._storage.setItem(VL_COOKIE_NAME, 'on', {
+            expires: VL_COOKIE_EXPIRATION_IN_MS,
         });
     };
     VisualLabeler.prototype._getVLCookie = function () {
-        return this._storage.getItem(exports.VL_COOKIE_NAME);
+        return this._storage.getItem(VL_COOKIE_NAME);
     };
     /**
      * @param {MessageEvent} event
@@ -215,7 +210,7 @@ var VisualLabeler = /** @class */ (function () {
     VisualLabeler.prototype._initializeHeapV = function (event) {
         window.heapV = Object.assign({}, {
             source: event === null || event === void 0 ? void 0 : event.source,
-            uri: exports.HEAP_WEB_APP_URI,
+            uri: HEAP_WEB_APP_URI,
             loadArgs: event === null || event === void 0 ? void 0 : event.data.args,
         });
     };
@@ -239,13 +234,12 @@ var VisualLabeler = /** @class */ (function () {
     };
     return VisualLabeler;
 }());
-exports.VisualLabeler = VisualLabeler;
 var initVLIfCookieIsPresent = function () {
     var storage = new CookiesStorage();
     var isNotIframe = window.top === window.self;
-    if (isNotIframe && storage.getItem(exports.VL_COOKIE_NAME)) {
+    if (isNotIframe && storage.getItem(VL_COOKIE_NAME)) {
         VisualLabeler.getInstance().initialize();
     }
 };
-(0, exports.initOnMessageHandler)();
+initOnMessageHandler();
 initVLIfCookieIsPresent();
