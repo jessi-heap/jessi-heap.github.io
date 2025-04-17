@@ -203,8 +203,8 @@ var VisualLabeler = /** @class */ (function () {
             source: event === null || event === void 0 ? void 0 : event.source,
             uri: HEAP_WEB_APP_URI,
             loadArgs: event === null || event === void 0 ? void 0 : event.data.args,
-            identify: console.log('called window.heapV.identify'),
-            track: console.log('called window.heapV.track'),
+            identify: function () { console.log('called window.heapV.identify'); },
+            track: function () { console.log('called window.heapV.track'); },
         });
     };
     /*
