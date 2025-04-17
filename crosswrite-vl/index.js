@@ -104,16 +104,6 @@ var CookiesStorage = /** @class */ (function () {
             }
             return cookieMatch !== null && cookieMatch !== void 0 ? cookieMatch : null;
         };
-        this.hasExpired = function (expiry) {
-            var now = new Date();
-            if (now >= expiry) {
-                return true;
-            }
-            return false;
-        };
-        this.removeItem = function (name) {
-            _this.setItem(name, '', { expires: '-60000' });
-        };
     }
     return CookiesStorage;
 }());
@@ -139,10 +129,10 @@ var VisualLabelerStatus;
  * The VL gets initiated via postMessage events from the heapanalytics.com domain.
  */
 var postMessageHandler = function (event) {
-    console.log('received message ', event);
     if (event.origin !== HEAP_WEB_APP_URI) {
         return;
     }
+    console.log('received message ', event);
     if (typeof event.data !== 'object') {
         return;
     }
@@ -156,7 +146,7 @@ var postMessageHandler = function (event) {
     VisualLabeler.getInstance().initialize(event);
 };
 var sendReceivedInitMessageTo = function (source) {
-    console.log('sent message received ');
+    console.log('sent message received to', source);
     source.postMessage({
         type: 'status',
         value: VisualLabelerStatus.ReceivedInitMessage,
@@ -199,6 +189,7 @@ var VisualLabeler = /** @class */ (function () {
         this._storage.setItem(VL_COOKIE_NAME, 'on', {
             expires: VL_COOKIE_EXPIRATION_IN_MS,
         });
+        console.log('set cookie');
     };
     VisualLabeler.prototype._getVLCookie = function () {
         return this._storage.getItem(VL_COOKIE_NAME);
@@ -212,6 +203,8 @@ var VisualLabeler = /** @class */ (function () {
             source: event === null || event === void 0 ? void 0 : event.source,
             uri: HEAP_WEB_APP_URI,
             loadArgs: event === null || event === void 0 ? void 0 : event.data.args,
+            identify: console.log('called window.heapV.identify'),
+            track: console.log('called window.heapV.track'),
         });
     };
     /*
@@ -219,7 +212,7 @@ var VisualLabeler = /** @class */ (function () {
      */
     VisualLabeler.prototype.initialize = function (event) {
         if (this._hasInitialized) {
-            console.log('initialized vl');
+            console.log('vl already initialized ');
             return;
         }
         this._hasInitialized = true;
@@ -231,6 +224,7 @@ var VisualLabeler = /** @class */ (function () {
         }
         this._loadVLScript();
         this._loadVLStyles();
+        console.log('initialized vl');
     };
     return VisualLabeler;
 }());
