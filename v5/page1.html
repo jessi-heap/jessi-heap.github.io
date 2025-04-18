@@ -51,6 +51,12 @@
         errorCur = errorCur + window.errCount + ". Line " + lineNum + ": " + message + "(" + url + ")<br/>";
         document.getElementById("errorDisp").innerHTML = errorCur;
       };
+      function queryParamExists(name) {
+          name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+          var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+              results = regex.exec(location.search);
+          return results !== null;
+      }
     </script>
     <!-- Include Heap -->
     <script type="text/javascript">
@@ -79,7 +85,7 @@
             // eventPropertiesStorage: 'localstorage',
             supportedDomains: ['ramsey.com'],
             // enableSecureCookies: true,
-            compressCookies: true
+            compressCookies: queryParamExists("compressCookies"),
         });
 
         function fn(dependencyContainer) {
