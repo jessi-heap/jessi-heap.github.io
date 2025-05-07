@@ -56,6 +56,13 @@
         heap.load('1711357493', {
             logLevel: 'trace',
         });
+        function delayFn(dependencyContainer) {
+            console.log('delaying');
+        }
+        heap.addAdapter(
+            { name: 'delay', fn: delayFn },
+            { isBlocking: true, blockDurationInMs: 5000},
+        );
     </script>
   </head>
   <body id="page1">
