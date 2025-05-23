@@ -19,7 +19,7 @@
             font-family: Arial, sans-serif;
             padding: 20px;
         }
-        .item-list {
+        .cart-items {
             display: flex;
         }
         .item {
@@ -106,7 +106,7 @@
         }
         alert('Thank you for your purchase!');
         const purchasedItems = [...cart];
-        heap.track('Purchase', {items: purchasedItems});
+        heap.track('Purchase', {items: purchasedItems.map(item => item.name)});
         cart.length = 0;
         renderCart();
     }
