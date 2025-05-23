@@ -19,10 +19,13 @@
             font-family: Arial, sans-serif;
             padding: 20px;
         }
+        .item-list {
+            display: flex;
+        }
         .item {
             border: 1px solid #ccc;
             padding: 10px;
-            margin-bottom: 10px;
+            margin: 10px;
             border-radius: 8px;
         }
         .item h3 {
@@ -63,7 +66,7 @@
     function addToCart(itemId) {
         const item = items.find(i => i.id === itemId);
         cart.push(item);
-        heap.track('Add to cart', {item: item})
+        heap.track('Add to cart', {item: item.name})
         renderCart();
     }
 
