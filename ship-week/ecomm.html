@@ -90,9 +90,10 @@
         const total = document.getElementById('total');
         cartItems.innerHTML = '';
         let sum = 0;
-        cart.forEach(item => {
+        cart.forEach((item, index) => {
             const li = document.createElement('li');
-            li.textContent = `${item.name} - $${item.price}`;
+            li.innerHTML = `${item.name} - $${item.price}
+      <button onclick="removeFromCart(${index})">Remove</button>`;
             cartItems.appendChild(li);
             sum += item.price;
         });
@@ -109,6 +110,11 @@
         heap.track('Purchase', {items: purchasedItems.map(item => item.name)});
         cart.length = 0;
         renderCart();
+    }
+
+    function removeFromCart(index) {
+        cart.splice(index, 1); // Remove one item at that index
+        renderCart(); // Refresh the cart display
     }
 
     renderItems();
