@@ -56,12 +56,16 @@
         heap.load('1711357493', {
             logLevel: 'trace',
         });
-        function delayFn(dependencyContainer) {
-            console.log('delaying');
+
+        function testPageviewProperties (dependencyContainer) {
+            if(!window.location.hash) {
+                var props = {mario: 'peach', luigi: 'daisy', wario: 'waluigi'};
+                heap.addPageviewProperties(props);
+            }
         }
         heap.addAdapter(
-            { name: 'delay', fn: delayFn },
-            { isBlocking: true, blockDurationInMs: 5000},
+            { name: 'testPageviewProperties', fn: testPageviewProperties },
+            { isBlocking: true, blockDurationInMs: 7000 },
         );
     </script>
   </head>

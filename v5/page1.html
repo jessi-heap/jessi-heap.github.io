@@ -88,15 +88,26 @@
             compressCookies: queryParamExists("compressCookies"),
         });
 
-        function testPageviewProperties (dependencyContainer) {
-            if(!window.location.hash) {
-                var props = {mario: 'peach', luigi: 'daisy', wario: 'waluigi'};
-                heap.addPageviewProperties(props);
-            }
+        function fn(dependencyContainer) {
+            var SOURCE_NAME = 'rerunAdapter';
+
+            console.log('adapters -- should rerun on every pageview');
+            dependencyContainer.markAdapterAsResolved(SOURCE_NAME);
         }
         heap.addAdapter(
-            { name: 'testPageviewProperties', fn: testPageviewProperties },
-            { isBlocking: true, blockDurationInMs: 7000 },
+            { name: 'rerunAdapter', fn: fn },
+            { isBlocking: true, blockDurationInMs: 5000, rerunOnNewPageview: true },
+        );
+
+        function dnfn(dependencyContainer) {
+            var SOURCE_NAME = 'dontRerunAdapter';
+
+            console.log('adapters -- should only run once');
+            dependencyContainer.markAdapterAsResolved(SOURCE_NAME);
+        }
+        heap.addAdapter(
+            { name: 'dontRerunAdapter', fn: dnfn },
+            { isBlocking: true, blockDurationInMs: 5000, rerunOnNewPageview: false },
         );
 
 
