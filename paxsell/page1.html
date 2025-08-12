@@ -94,6 +94,14 @@
                 window._uxa.push(['trackPageview', window.location.pathname + window.location.hash.replace('#', '?__')]);
             }
         })();
+
+        function sendTransactionEvent() {
+            window._uxa.push(['ec:transaction:create', {
+                'id': Date.now().toString(), /* Transaction ID (string, up to 40 characters) */
+                'revenue': 280, /* Transaction's total amount paid (integer or string, up to 12 digits and 2 decimals - extra decimals are truncated) */
+                'currency': 'usd' /* Currency value (string - numeric or alphanumeric ISO 4217 value) (optional) */
+            }]);
+        }
     </script>
     <script async="" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.7/underscore-umd-min.js"></script>
 
@@ -108,6 +116,10 @@
 <div id="clicky"></div>
 <div id="errorDisp">
     errors<br/>
+</div>
+
+<div id="ecommerce-cs">
+    <button onClick=sendTransactionEvent()>Send transaction event</button>
 </div>
 
 <div class="pii-test-cs" style="border: 1px solid #000000">
