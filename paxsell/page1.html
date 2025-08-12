@@ -97,9 +97,9 @@
 
         function sendTransactionEvent() {
             window._uxa.push(['ec:transaction:create', {
-                'id': Date.now().toString(), /* Transaction ID (string, up to 40 characters) */
-                'revenue': 280, /* Transaction's total amount paid (integer or string, up to 12 digits and 2 decimals - extra decimals are truncated) */
-                'currency': 'usd' /* Currency value (string - numeric or alphanumeric ISO 4217 value) (optional) */
+                'id': Date.now().toString(),
+                'revenue': 280,
+                'currency': 'usd'
             }]);
             window._uxa.push(["ec:transaction:send"]);
         }
@@ -120,7 +120,7 @@
 </div>
 
 <div id="ecommerce-cs">
-    <button onClick=sendTransactionEvent()>Send transaction event</button>
+    <button onClick=sendTransactionEvent() id="send-transaction">Send transaction event</button>
 </div>
 
 <div class="pii-test-cs" style="border: 1px solid #000000">
