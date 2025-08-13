@@ -30,6 +30,7 @@
             var SOURCE_NAME = 'addProps';
 
             heap.addPageviewProperties({pageviewPropertyTest:'testing pv'});
+            heap.addEventProperties({eventPropertyTestPersistence:'check'});
             dependencyContainer.markAdapterAsResolved(SOURCE_NAME);
         }
         heap.addAdapter(
@@ -40,7 +41,7 @@
         function addEventProps(){
             heap.addEventProperties({eventPropertyTest:'testing event'});
         }
-
+        
     </script>
 </head>
 <body>
