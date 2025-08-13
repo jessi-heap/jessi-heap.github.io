@@ -29,7 +29,7 @@
         function addPropsFn(dependencyContainer) {
             var SOURCE_NAME = 'addProps';
 
-            heap.addPageviewProperties({pageviewPropertyTest:'testing pv'});
+            heap.addPageviewProperties({pageviewPropertyTest:'testing pv', testPropHierarchy: 'addPageviewProperties'});
             heap.addEventProperties({eventPropertyTestPersistence:'check'});
             dependencyContainer.markAdapterAsResolved(SOURCE_NAME);
         }
@@ -39,9 +39,9 @@
         );
 
         function addEventProps(){
-            heap.addEventProperties({eventPropertyTest:'testing event'});
+            heap.addEventProperties({eventPropertyTest:'testing event', testPropHierarchy: 'addEventProperties'});
         }
-        
+
     </script>
 </head>
 <body>
