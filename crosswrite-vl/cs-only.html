@@ -38,6 +38,27 @@
 </ul>
 <a href="page2.html">Click to page2</a>
 
+<form id="noop-form" onsubmit="return false;" aria-label="No-op form">
+    <label for="name">Name</label>
+    <input id="name" name="name" type="text" placeholder="Your name" />
+
+
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" placeholder="you@example.com" />
+
+
+    <button type="submit">Submit (does nothing)</button>
+</form>
+
+
+<script>
+    // Extra safety: prevent submission via JS as well.
+    document.getElementById('noop-form').addEventListener('submit', function (e) {
+        e.preventDefault(); // stops any default behaviour
+// intentionally do nothing
+    });
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
