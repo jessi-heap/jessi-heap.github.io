@@ -9,7 +9,7 @@
     <script type="text/javascript">
         (function () {
             window._uxa = window._uxa || [];
-            window._uxa.push(['setReferrer', 'https://example.github.io/testReferrer']);
+            heap.addPageviewProperties({"foo":"bar"});
             if (typeof CS_CONF === 'undefined') {
                 window._uxa.push(['setPath', window.location.pathname + window.location.hash.replace('#', '?__')]);
                 var mt = document.createElement("script");
