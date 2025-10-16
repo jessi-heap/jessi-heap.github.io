@@ -10,6 +10,7 @@
         (function () {
             window._uxa = window._uxa || [];
             window._uxa.push(['addPageviewProperties', { child:"test" }]);
+            window._uxa.push(['addEventProperties', { childEvent:"bar" }]);
 
             if (typeof CS_CONF === 'undefined') {
                 window._uxa.push(['setPath', window.location.pathname + window.location.hash.replace('#', '?__')]);
