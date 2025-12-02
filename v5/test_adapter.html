@@ -26,16 +26,21 @@
         heap.load('2262879963', {
             logLevel: 'trace',
         });
-        function addPropsFn(dependencyContainer) {
-            var SOURCE_NAME = 'addProps';
+        function testAdapterFn(dependencyContainer) {
+            var SOURCE_NAME = 'testAdapter';
 
-            heap.addPageviewProperties({pageviewPropertyTest:'testing pv', testPropHierarchy: 'addPageviewProperties'});
-            heap.addEventProperties({eventPropertyTestPersistence:'check'});
+            const el = document.getElementById('flushQueue');
+            if (!el) return;
+
+            el.addEventListener('click', function (event) {
+                dependencyContainer.flushEventQueue();
+            });
+            
             dependencyContainer.markAdapterAsResolved(SOURCE_NAME);
         }
         heap.addAdapter(
-            { name: 'addProps', fn: addPropsFn },
-            { isBlocking: true, blockDurationInMs: 5000},
+            { name: 'testAdapter', fn: testAdapterFn },
+            { isBlocking: false},
         );
 
         function addEventProps(){
@@ -50,6 +55,7 @@
     <p>This is a simple HTML template.</p>
     <a href="test_adapter2.html">Go to another page</a>
     <button onClick=addEventProps()>Add Event Proprties</button>
+    <button id="flushQueue">Flush Queue</button>
 </div>
 </body>
 </html>
