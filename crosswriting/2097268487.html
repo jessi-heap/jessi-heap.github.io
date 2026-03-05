@@ -14,6 +14,22 @@
         });
 
     </script>
+    <!-- Include CS -->
+    <script type="text/javascript">
+        (function () {
+            window._uxa = window._uxa || [];
+            if (typeof CS_CONF === 'undefined') {
+                window._uxa.push(['setPath', window.location.pathname + window.location.hash.replace('#', '?__')]);
+                var mt = document.createElement("script");
+                mt.type = "text/javascript";
+                mt.async = true;
+                mt.src = "https://t.contentsquare.net/uxa/7d6fa3e389620.js";
+                document.getElementsByTagName("head")[0].appendChild(mt);
+            } else {
+                window._uxa.push(['trackPageview', window.location.pathname + window.location.hash.replace('#', '?__')]);
+            }
+        })();
+    </script>
 </head>
 <body>
     <h1>Hello, world!</h1>
