@@ -85,6 +85,39 @@
        <div heap-ignore>Hide this paragraph</div>
 
    </div>
+
+   <div class="pii-test-cs" style="border: 1px solid #000000">
+       <h2>Use this for PII testing</h2>
+       <p data-cs-mask>This paragraph uses <code>data-cs-mask</code>. <span>Here is a child element</span></p>
+       <button>Test button (no redaction)</button>
+
+       <div id="redactMe">
+           Everything within this div should be redacted through <code>PIISelectors</code>
+           <div>
+               <p id='customer info' attr1='something sensitive' attr2='something even more sensitive' attr3='completely safe'>Customer Profile</p>
+           </div>
+       </div>
+
+       <div id="redactMeAlso">
+           Everything within this div should be redacted through <code>PIISelectors</code>
+       </div>
+
+       <div id="redactAttribute" data-blue="redact me" data-green="do not redact me">
+           <code>data-blue</code> attribute should be redacted
+       </div>
+
+       <div id="redactAttribute2" data-blue="redact me" data-green="redact me">
+           <code>data-blue</code> and <code>data-green</code> attribute should be redacted
+       </div>
+
+       <div>
+           <span>me email is email@test.com</span><br>
+           <span>my credit card number is 4242424242424242</span>
+
+       </div>
+
+   </div>
+
     <div class="nested" id="test-nested">
       <span class="layer" id="another">
         <div class="btn" id="regElem">Signup now!</div>
