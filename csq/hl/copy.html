@@ -11,7 +11,32 @@
       crossorigin="anonymous"
     />
     <!-- Include CS -->
-    <script src="https://t.contentsquare.net/uxa/ac9f39107788f.js"></script>
+    <script type="text/javascript">
+    (function () {
+        window._uxa = window._uxa || [];
+
+        window._uxa.push(["setCustomVariable", 1, "cvar_default_test", "cvalue"]);
+        window._uxa.push(["setCustomVariable", 2, "cvar_page_test", "cvalue", "page"]);
+        window._uxa.push(["setCustomVariable", 3, "cvar_nextPageOnly_test", "cvalue", "nextPageOnly"]);
+        window._uxa.push(["setCustomVariable", 4, "cvar_visit_test", "cvalue", "visit"]);
+        if (typeof CS_CONF === "undefined") {
+        window._uxa.push([
+            "setPath",
+            window.location.pathname + window.location.hash.replace("#", "?__")
+        ]);
+        var mt = document.createElement("script");
+        mt.type = "text/javascript";
+        mt.async = true;
+        mt.src = "//t.contentsquare.net/uxa/ac9f39107788f.js";
+        document.getElementsByTagName("head")[0].appendChild(mt);
+        } else {
+        window._uxa.push([
+            "trackPageview",
+            window.location.pathname + window.location.hash.replace("#", "?__")
+        ]);
+        }
+    })();
+    </script>
   </head>
   <body>
     <h1>Hello, world!</h1>
