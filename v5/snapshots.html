@@ -368,5 +368,31 @@
 
   </div>
 
+  <script>
+    document.addEventListener('click', function (event) {
+        var button = event.target.closest('button.add-to-cart');
+
+        if (!button) {
+        return;
+        }
+
+        var productCard = button.closest('.product-card');
+
+        var productName = productCard
+        .querySelector('.product-name')
+        .textContent
+        .trim();
+
+        var productPrice = productCard
+        .querySelector('.product-price')
+        .textContent
+        .trim();
+
+        heap.track('Click - Add to Cart Custom', {
+            productPrice: productPrice,
+            productName: productName
+        });
+    });
+  </script>
 </body>
 </html>
