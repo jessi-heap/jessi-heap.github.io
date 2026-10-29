@@ -12,7 +12,230 @@
 </head>
 <body>
     <h1>Hello, world!</h1>
+
+    <div class="pii-test-cs">
+       <p data-heap-redact-text>Testing paragraph redaction <span>Inside span</span></p>
+       <button>Test button</button>
+       <div data-heap-redact-attributes='attr1,attr2'>
+           <div>
+               <p id='customer info' attr1='something sensitive' attr2='something even more sensitive' attr3='completely safe'>Customer Profile</p>
+           </div>
+       </div>
+       <div>Testing random paragraph</div>
+       <div data-heap-redact-text>
+           Social Security Number
+       </div>
+       <div>Show me this paragraph</div>
+       <div heap-ignore>Hide this paragraph</div>
+
+   </div>
+
+   <div class="pii-test-cs" style="border: 1px solid #000000">
+       <h2>Use this for PII testing</h2>
+       <p data-cs-mask>This paragraph uses <code>data-cs-mask</code>. <span>Here is a child element</span></p>
+       <button>Test button (no redaction)</button>
+
+       <div id="redactMe">
+           Everything within this div should be redacted through <code>PIISelectors</code>
+           <div>
+               <p id='customer info' attr1='something sensitive' attr2='something even more sensitive' attr3='completely safe'>Customer Profile</p>
+           </div>
+       </div>
+
+       <div id="redactMeAlso">
+           Everything within this div should be redacted through <code>PIISelectors</code>
+       </div>
+
+       <div id="redactAttribute" data-blue="redact me" data-green="do not redact me">
+           <code>data-blue</code> attribute should be redacted
+       </div>
+
+       <div id="redactAttribute2" data-blue="redact me" data-green="redact me">
+           <code>data-blue</code> and <code>data-green</code> attribute should be redacted
+       </div>
+
+       <div>
+           <span>me email is email@test.com</span><br>
+           <span>my credit card number is 4242424242424242</span>
+
+       </div>
+
+   </div>
+
+    <div class="nested" id="test-nested">
+      <span class="layer" id="another">
+        <div class="btn" id="regElem">Signup now!</div>
+      </span>
+    </div>
+    <div class="btn" id="donot">Do not signup now!</div>
+    <svg id="svgelem" class="svg class test" width="100" height="50">
+      <g>
+        <text x="85" y="20" dy=".32em" text-anchor="end" style="color: #333333">SVG TEXT</text>
+      </g>
+    </svg>
+    <svg id="svgelem2" class="svg class test" width="100" height="50" data-test="testing" aria-label="testing">
+      <g>
+        <text x="85" y="20" dy=".32em" text-anchor="end" style="color: #333333">SVG TEST CLICK</text>
+      </g>
+    </svg>
+    <span id="asdf" contenteditable>
+      asdfsadf
+      <a href='../page3' id='contenteditable-link'>editable link</a>
+    </span>
+    <div class="btn" id="pushstate" onclick="pushStateNavigate();">Click to trigger pushstate event</div>
+    <div class="btn" id="replacestate" onclick="replaceStateNavigate();">Click to trigger replacestate event</div>
+    <div class="testescape;|[]" maxlength=500 onclick="javascript:void 0" onsubmit="javascript: void 0" data-part="attr test" data-analytics="section" data-reactid="shouldbeignored" data-longattr="lots of garbage in this attribute that we shouldn't bother picking up because its tooooooooooo loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong">
+      <a class="btn" id="hashchange" href="#hashsection" emptyattr>
+        <span id="hashchangespan" custom="field">Click to trigger hashchange event</span>
+      </a>
+    </div>
+    <div>
+      <a class="btn" id="querychange" href="?test=queryparam">
+        <span id="querychangespan">Click to trigger hashchange event with the query changed</span>
+      </a>
+    </div>
+    <form id="signup" class="signup" action="../page3" method="get">
+      Name: <input id="name" type="text" name="name"><br>
+      Password: <input id="password" type="password" name="password"><br>
+      <input id="hungry" type="checkbox" name="persontype" value="hungry">Hungry<br>
+      <input id="angry" type="checkbox" name="persontype" value="angry">Angry<br>
+      <input id="mandarin" type="radio" name="language" value="mandarin">Mandarin<br>
+      <input id="english" type="radio" name="language" value="english">English<br>
+      <button id="submit" type="submit" value="Submit">
+        <span id="submit-span">Click here</span>
+      </button>
+    </form>
+    <div id="brock" class="c_qx c_qy c_pq c_qz c_qn c_j c_qx c_qy c_pq c_qz c_qn c_j c_ra c_fi c_iy c_gn c_is c_dn c_qp c_rb c_rc c_rd c_bc c_hh c_aq c_ar c_cg c_hg c_cp c_cq c_e c_dk" height="120" data-foobar="multi
+    line
+    attr">some stuff</div>
+    <textarea id="mytextarea" class="mytextarea" height="120" placeholder="Example: yoursite.com"></textarea>
+    <textarea id="mytextareawithtext" class="mytextareawithtext" height="120">this is some text inside a textarea element</textarea>
+
+    <div id="squirtle-owner" class="title">squirtle: Misty</div>
+    <div id="warturtle-owner" class="title">warturtle: Misty</div>
+    <div id="poliwrath-owner" class="title">poliwrath: Misty</div>
+    <div id="gyarados-owner" class="title">gyarados: Misty</div>
+    <div id="tentacool-owner" class="title">tentacool: Misty</div>
+    <div id="staryu-owner" class="title">staryu: Misty</div>
+    <div id="misty">Hi I'm Misty</div>
+    <div id="ash-ketchum" class="ash-ketchum">Hi I'm Ash</div>
+    <ul>
+      <li id="who-does-ash-own">chamander</li>
+      <li id="who-does-misty-own">vaporeon</li>
+      <li id="squirtle" name="squirtle">squirtle</li>
+      <li id="poliwrath" name="poliwrath">poliwrath</li>
+      <li id="gyarados" name="gyarados">gyarados</li>
+      <li id="tentacool" name="tentacool">tentacool</li>
+      <li id="staryu" name="staryu">staryu</li>
+      <li data-shiny="true" id="warturtle" name="warturtle">warturtle</li>
+    </ul>
+
+    <form id="parameters-test" action="/test/submit" method="post">
+      <button id="submit-parameters" type="submit" name="valid" value="true">
+        <span>Click here to test parameters!</span>
+      </button>
+
+      <button id="submit-parameters-dummy" type="submit" name="valid" value="false" onclick="return false;">
+        <span>Get some free money!</span>
+      </button>
+
+      <button id="submit-parameters-typeless" name="valid" value="true"></button>
+
+      <button id="submit-parameters-button-image" type="image" name="valid" value="true"></button>
+
+      <button id="submit-parameters-invalid-type" type="blorp" name="valid" value="true"></button>
+
+      <button id="submit-parameters-no-attributes" type="submit"></button>
+    </form>
+
+    <form action="/test/submit" method="post" id="post-submit-modified">
+      <input id="submit-post-submit-modified" type="submit" name="commit" value="Submit">
+    </form>
+
+    <form id="input-form-html5-overrides-test" action="../page3" method="get">
+      <button id="formoverride" type="submit" name="valid" value="true" formaction="/test/submit" formmethod="post">
+        Try out input form overrides
+      </button>
+    </form>
+
+    <!-- :TRICKY: The coordinates for the click will change if you add an element
+         above this one in the DOM. -->
+    <h3>Button for humans only:</h3>
+    <form id="image-test-human" action="/test/submit" method="post">
+      <input id="submit-image-human" type="image" name="logo" class="logo" src="/favicon.ico">
+    </form>
+
+    <h3>Button for robots only:</h3>
+    <form id="image-test-robot" action="/test/submit" method="post">
+      <input id="submit-image-robot" type="image" name="logo" class="logo" src="/favicon.ico">
+    </form>
+
+    <h3>Button with no name attribute:</h3>
+    <form id="image-test-nameless" action="/test/submit" method="post">
+      <input id="submit-image-nameless" type="image" class="logo" src="/favicon.ico">
+    </form>
+
+    <h3>Button with input named 'id':</h3>
+    <form id="image-test-id-collision" action="/test/submit" method="post">
+      <input id="submit-button-id" name="id">
+      <button id="submit-collision-button" type="submit" value="Submit"></button>
+    </form>
+
+    <h3>Button that submits to the form without being inside the form's DOM tree</h3>
+    <button type="submit" id="formoverrideOot" name="ootValid" value="true" form="input-form-html5-overrides-test" formaction="/test/submit" formmethod="post">
+      Try out input form overrides out of tree
+    </button>
+
+    <form id="input-form-html5-overrides-test-nested" action="../page3" method="get">
+      <button id="formoverrideNested" type="submit" name="inDiffTree" value="true" form="input-form-html5-overrides-test" formaction="/test/submit" formmethod="post">
+        Try out input form overrides with form action
+      </button>
+      <input type="text" id="nestedTextField" name="badform" value="true">
+    </form>
+    <h3>Some text field that should get sent along with the submit</h3>
+    <input type="text" id="textfieldOot" name="ootText" value="grapes" form="input-form-html5-overrides-test">
+    <input type="text" name="valid" value="true" form="input-form-html5-overrides-test">
+
+    <select id="select-button">
+      <option value="apple">Apple</option>
+      <option value="banana">Banana</option>
+      <option value="cherry">Cherry</option>
+    </select>
+
+    <a id="download-test" download="page3.html" href="../page3">Download the congrats page!</a>
+
+    <h1 class="main header" id="penh1">Seriously, check it out.</h1>
+    <h2 id="targetclasstruncation" class="lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur">Testing target class truncation</h2>
+    <h2 id="targetclassnormal" class="crow stuff">Make sure we don't drop target classes inappropriately</h2>
+    <h2 id="targetclassspaces" class="  bread  magic  ">Make sure we strip off extra spaces</h2>
+
+    <div id='secret-stuff' heap-ignore='true'>
+      <input id='secret-text' name='secret'>
+    </div>
+
+    <input id="pii-text-dynamic-match" data-safe="safe" data-mirrored="mirrored value">
+    <input id="pii-text-static-match"  data-safe="safe" data-unsafe="pii" value="pii">
+    <input id="pii-text-static-empty-match"  data-safe="" value="">
+
+    <input id="no-passwords" type="password" name="signupnow" value="blerp">
+    <!-- :TODO: Starting in ~Firefox 50 the unclosed inputs damage data collection for subsequent div -->
+    <div id="weirdness">some content</div>
+    <div id="not-password" value="phil">punxsutawney</div>
+    <div id= 'cow-emojis'>
+      \uD83D\uDC04 \uD83D\uDC04 \uD83D\uDC04
+    </div>
+    <a href="../page3" id="draxx">We gonna draxx them sklounst 🐸</a>
+
+    <div id="previousPage">
+        <h1>Previous Page</h1>
+        <a href="javascript:pushStateToPathname('previous_page');" id="previousPagePush">Push!</a>
+        <a href="javascript:replaceStateNavigate();" id="previousPageReplace">Replace</a>
+        <a href="#thisisanewsection" id="previousPageUpdateHash">Change hash</a>
+        <a href="javascript:queryStateChange();" id="previousPageUpdateQS">Replace Query</a>
+    </div>
+
+    <a href="mailto:blorp@example.com" id="blorpmail">Email Blorp</a>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-    <iframe src="/page1.html" title="description"></iframe>
+ 
 </body>
 </html>
